@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocStudio - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'core_docs/css/estilos.css' %}">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="brand">
+            <span>🛠️ DocStudio</span>
+        </div>
+        
+        <nav>
+            <p class="menu-label">Navegación</p>
+            <ul class="nav-links">
+                <li class="nav-item {% block active_home %}{% endblock %}">
+                    <a href="/inicio/">🏠 Inicio</a>
+                </li>
+            </ul>
+            <br>
+            <p class="menu-label">Herramientas PDF</p>
+                <ul class="nav-links">
+                    <li class="nav-item {% block active_split %}{% endblock %}">
+                        <a href="/dividir/">✂️ Dividir PDF</a>
+                    </li>
+                    <li class="nav-item {% block active_word %}{% endblock %}">
+                        <a href="/conversor/">🔄 PDF a Word / Viceversa</a>
+                    </li>
+                </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header>
+            <h1>{% block header_title %}{% endblock %}</h1>
+            <div class="user-profile">Usuario: aless</div>
+        </header>
+
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+</body>
+</html>

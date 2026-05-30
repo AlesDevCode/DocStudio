@@ -1,0 +1,51 @@
+{% extends 'core_docs/base.html' %}
+
+{% block title %}Dividir PDF - DocStudio{% endblock %}
+{% block active_split %}active{% endblock %}
+{% block header_title %}Panel de Control{% endblock %}
+
+{% block content %}
+<div class="tool-card">
+    <h2>✂️ Dividir Archivo PDF</h2>
+    <p class="subtitle">Sube tu documento PDF y especifica el rango de páginas que deseas extraer en un nuevo archivo.</p>
+    
+    {% if messages %}
+        <div class="messages-container" style="margin-bottom: 20px; padding: 10px; border-radius: 6px; background-color: #fef2f2; border: 1px solid #fee2e2; color: #991b1b; font-size: 14px;">
+            {% for message in messages %}
+                <p class="message {{ message.tags }}">⚠️ {{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label>Selecciona tu documento</label>
+            <label for="archivo_pdf" class="file-dropzone">
+                <p>📁 Haz clic aquí para buscar tu archivo .pdf</p>
+                <input type="file" id="archivo_pdf" name="mi_pdf" accept=".pdf" required>
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label for="rango_paginas">Rango de páginas a extraer</label>
+            <input type="text" id="rango_paginas" class="form-control" name="paginas" placeholder="Ejemplo: 1-5 o 3,5,8" required>
+        </div>
+
+        <button type="submit" class="btn-submit">Procesar y Descargar</button>
+    </form>
+</div>
+
+<script>
+    const input = document.getElementById('archivo_pdf');
+    const dropzoneText = document.querySelector('.file-dropzone p');
+    
+    input.addEventListener('change', function(){
+        if(this.files.length > 0) {
+            dropzoneText.innerText = "📄 Archivo seleccionado: " + this.files[0].name;
+            dropzoneText.style.color = "#0284c7";
+        }
+    });
+</script>
+{% endblock %}

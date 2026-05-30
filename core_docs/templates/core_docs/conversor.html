@@ -1,0 +1,80 @@
+{% extends 'core_docs/base.html' %}
+
+{% block title %}Conversor Documentos{% endblock %}
+{% block active_word %}active{% endblock %}
+{% block header_title %}Panel de Control{% endblock %}
+
+{% block content %}
+<div class="tool-card">
+    <h2>🔄 Convertir Documentos</h2>
+    <p class="subtitle">Transforma tus archivos entre formatos PDF y DOCX de manera bidireccional y nativa.</p>
+    
+    {% if messages %}
+        <div class="messages-container" style="margin-bottom: 20px; padding: 10px; border-radius: 6px; background-color: #fef2f2; border: 1px solid #fee2e2; color: #991b1b; font-size: 14px;">
+            {% for message in messages %}
+                <p class="message {{ message.tags }}">⚠️ {{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <form id="form_conversor" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="tipo_conversion">Dirección de la conversión</label>
+            <select id="tipo_conversion" name="direccion" class="form-control" style="cursor: pointer;">
+                <option value="pdf_to_word">📄 PDF a DOCX (.docx)</option>
+                <option value="word_to_pdf">📝 DOCX (.docx) a PDF</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label id="label_archivo">Selecciona tu documento PDF</label>
+            <label for="archivo_doc" class="file-dropzone">
+                <p id="texto_dropzone">📁 Haz clic aquí para buscar tu archivo .pdf</p>
+                <input type="file" id="archivo_doc" name="mi_archivo" accept=".pdf" required>
+            </label>
+        </div>
+
+        <button type="submit" id="btn_submit" class="btn-submit">Convertir y Descargar</button>
+    </form>
+</div>
+
+<script>
+    const selector = document.getElementById('tipo_conversion');
+    const labelArchivo = document.getElementById('label_archivo');
+    const textoDropzone = document.getElementById('texto_dropzone');
+    const inputArchivo = document.getElementById('archivo_doc');
+    const formConversor = document.getElementById('form_conversor');
+    const btnSubmit = document.getElementById('btn_submit');
+
+    // Cambiar dinámicamente el comportamiento visual del selector
+    selector.addEventListener('change', function() {
+        if (this.value === 'pdf_to_word') {
+            labelArchivo.innerText = "Selecciona tu documento PDF";
+            textoDropzone.innerText = "📁 Haz clic aquí para buscar tu archivo .pdf";
+            inputArchivo.accept = ".pdf";
+        } else {
+            labelArchivo.innerText = "Selecciona tu documento Word (.docx)";
+            textoDropzone.innerText = "📁 Haz clic aquí para buscar tu archivo .docx";
+            inputArchivo.accept = ".docx";
+        }
+        inputArchivo.value = ""; 
+        textoDropzone.style.color = "";
+    });
+
+    // Mostrar el nombre del archivo seleccionado
+    inputArchivo.addEventListener('change', function(){
+        if(this.files.length > 0) {
+            textoDropzone.innerText = "📄 Archivo listo: " + this.files[0].name;
+            textoDropzone.style.color = "#0284c7";
+        }
+    });
+
+    // Animación de envío de datos
+    formConversor.addEventListener('submit', function() {
+        btnSubmit.innerText = "⏳ Procesando conversión... Por favor espere";
+        btnSubmit.style.backgroundColor = "#0284c7";
+    });
+</script>
+{% endblock %}

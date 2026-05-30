@@ -1,0 +1,30 @@
+{% extends 'core_docs/base.html' %}
+
+{% block title %}Inicio{% endblock %}
+{% block active_home %}active{% endblock %}
+{% block header_title %}Centro de Herramientas{% endblock %}
+
+{% block content %}
+<h2>Bienvenido a DocStudio</h2>
+<p class="subtitle">Selecciona el módulo con el que deseas trabajar hoy.</p>
+
+<div class="tools-grid">
+    <a href="/dividir/" class="tool-item-card">
+        <div class="tool-icon-wrapper">✂️</div>
+        <h3>Dividir PDF</h3>
+        <p>Extrae rangos específicos de páginas o separa documentos pesados de forma rápida.</p>
+    </a>
+
+    <div class="tool-item-card disabled">
+        <div class="tool-icon-wrapper">📝</div>
+        <h3>PDF a Word</h3>
+        <p>Convierte tus documentos PDF editables manteniendo textos y formatos estructurados. (Próximamente)</p>
+    </div>
+
+    <div class="tool-item-card disabled">
+        <div class="tool-icon-wrapper">⚙️</div>
+        <h3>Editar Estructura</h3>
+        <p>Modifica títulos, autores o configuraciones internas de tus archivos comprimidos. (Próximamente)</p>
+    </div>
+</div>
+{% endblock %}

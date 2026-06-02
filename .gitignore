@@ -1,19 +1,24 @@
-# Entornos virtuales
+# Entorno virtual de Python
 venv/
 env/
 .env
 
-# Caché de Python
+# Base de datos de SQLite
+db.sqlite3
+
+# Archivos de caché de Python
 __pycache__/
 *.py[cod]
 
-# IDEs
-.vscode/
-.idea/
-
-# Carpetas del sistema
-.DS_Store
-Thumbs.db
-
-# Log y datos temporales
+# Archivos de Django
+media/
 *.log
+
+# React (Node.js)
+node_modules/
+dist/
+build/
+.output/
+
+# Configuración de VS Code (opcional)
+.vscode/
